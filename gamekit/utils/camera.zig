@@ -34,6 +34,6 @@ pub const Camera = struct {
 
     pub fn screenToWorld(self: Camera, pos: math.Vec2) math.Vec2 {
         var inv_trans_mat = self.transMat().invert();
-        return inv_trans_mat.transformVec2(.{ .x = pos.x, .y = @intToFloat(f32, gk.window.height()) - pos.y });
+        return inv_trans_mat.transformVec2(.{ .x = pos.x, .y = pos.y });
     }
 };
