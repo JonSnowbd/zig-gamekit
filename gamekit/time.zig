@@ -12,6 +12,8 @@ pub const Time = struct {
     frame_count: u32 = 1,
     timestep: Timestep = undefined,
 
+    frame_time: u32 = 0,
+
     pub fn init(update_rate: f64) Time {
         return Time{
             .timestep = Timestep.init(update_rate),
@@ -23,6 +25,8 @@ pub const Time = struct {
         self.fps_frames += 1;
         self.prev_time = self.curr_time;
         self.curr_time = sdl.SDL_GetTicks();
+
+        self.frame_time = self.curr_time - self.prev_time;
 
         const time_since_last = self.curr_time - self.fps_last_update;
         if (self.curr_time > self.fps_last_update + 1000) {
