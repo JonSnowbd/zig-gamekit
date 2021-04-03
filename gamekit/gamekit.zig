@@ -6,11 +6,12 @@ const imgui_impl = @import("imgui/implementation.zig");
 pub const renderkit = @import("renderkit");
 pub const utils = @import("utils/utils.zig");
 pub const math = @import("math/math.zig");
+pub const inputRaw = @import("input.zig");
 
 const Gfx = @import("gfx.zig").Gfx;
 const Window = @import("window.zig").Window;
 const WindowConfig = @import("window.zig").WindowConfig;
-const Input = @import("input.zig").Input;
+const Input = inputRaw.Input;
 const Time = @import("time.zig").Time;
 
 pub const Config = struct {
