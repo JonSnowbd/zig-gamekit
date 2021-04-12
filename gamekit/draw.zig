@@ -165,6 +165,34 @@ pub const draw = struct {
             last_p = at_p;
         }
     }
+    // TODO: Dont be jury rigged ellipse and actually draw an ellipse..
+    pub fn ellipse(center: math.Vec2, radius: f32, radiusY: f32, thickness: f32, resolution: i32, color: math.Color) void {
+        quad.setFill(white_tex.width, white_tex.height);
+
+        var last = math.Vec2.init(1, 0).scale(radius);
+        var last_p = last.orthogonal();
+
+        const ratio = radiusY / radius;
+
+        last.y *= ratio;
+        last_p.y *= ratio;
+
+        var i: usize = 0;
+        while (i <= resolution) : (i += 1) {
+            var at = math.Vec2.angleToVec(@intToFloat(f32, i) * std.math.pi * 0.5 / @intToFloat(f32, resolution), radius);
+            var at_p = at.orthogonal();
+            at.y *= ratio;
+            at_p.y *= ratio;
+
+            line(center.addv(last), center.addv(at), thickness, color);
+            line(center.subv(last), center.subv(at), thickness, color);
+            line(center.addv(last_p), center.addv(at_p), thickness, color);
+            line(center.subv(last_p), center.subv(at_p), thickness, color);
+
+            last = at;
+            last_p = at_p;
+        }
+    }
 
     pub fn hollowPolygon(verts: []const math.Vec2, thickness: f32, color: math.Color) void {
         var i: usize = 0;
